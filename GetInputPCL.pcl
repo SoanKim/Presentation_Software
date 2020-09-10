@@ -1,0 +1,54 @@
+#PCL
+
+string sKeyboardInput;
+string sTextOnScreen;
+int aiIdx;
+
+
+array <string> asPersonalInfo[4] = {"Name: ", "Surname: ", "Age: ", "Student number: "};
+
+
+
+sub GetKeyboardInput(string sInpStr)
+begin
+		t_Info1.set_caption(sInpStr);
+		t_Info1.redraw();
+		system_keyboard.set_case_mode(3); #This enables the use of capital letters
+		sKeyboardInput = system_keyboard.get_input(p_Info, t_Info2);
+end;
+
+sub Wait(int iWaitingTime)
+begin
+	int iTimeStamp = clock.time();
+	
+		loop
+		until clock.time() == iTimeStamp + iWaitingTime # statement or assignment
+		begin
+		end;
+end;
+
+
+loop
+		aiIdx = 0;  
+until
+		aiIdx == asPersonalInfo.count()
+begin
+		aiIdx = aiIdx + 1;
+		GetKeyboardInput(asPersonalInfo[aiIdx]);
+		sTextOnScreen.append(asPersonalInfo[aiIdx]+ "    "+ sKeyboardInput+"\n");
+
+end;
+
+t_Info1.set_caption(sTextOnScreen);
+t_Info1.redraw(); #sending it to graphic card
+t_Info2.set_caption(" ");	# Emptying out the text box	
+t_Info2.redraw();
+
+p_Info.present();
+Wait(1000);
+
+
+
+
+	
+

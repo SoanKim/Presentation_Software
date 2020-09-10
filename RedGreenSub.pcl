@@ -1,0 +1,109 @@
+#SUBS:
+include "RedGreenVAR.pcl";
+
+# Insert 1) Wait 2) WaitForAllButtonPress from the last assignment.
+# Make sure that the order is correct, then go on with following code
+#-----------Wait----------------
+sub Wait(int iDurWait) begin
+		int iTimeStamp;
+		loop
+				iTimeStamp = clock.time();
+		until (clock.time() >= iTimeStamp + iDurWait)
+		begin
+		end;
+end;
+
+#----------WaitForAllButtonpress --------------------
+sub WaitForAllButtonpress begin
+
+		loop 
+				iCountOld = response_manager.total_response_count() 
+		until response_manager.total_response_count() > iCountOld 
+		begin 
+		end;
+end;
+   
+#-----------------Show Text----------------------
+sub ShowText(string sMessage) begin
+	t_Text1.set_caption(sMessage);
+	t_Text1.redraw();
+	p_Text.present();
+end;
+
+#----------------RunTrials----------------------
+sub RunTrials begin
+			loop
+					iTrialCount = 1
+			until iTrialCount > iTotalAmountOfTrials begin
+						p_Fixation.present();
+						iFixationTime = clock.time();
+						Wait(random(400, 800)); #random is built-in function of Presentation
+						
+						iBoxColor = random(1,2);
+						if iBoxColor == 1 then
+								b_Box.set_color(255, 0, 0);
+								sBoxColor = "Red";
+						else
+								b_Box.set_color(0, 255, 0);
+								sBoxColor = "Green";
+						end;
+						p_Box.set_part_x(1, random(-300, 300)); #change the x position
+						p_Box.set_part_y(1, random(-300, 300)); #change the y position
+						p_Box.present();
+						iPictureTime = clock.time();
+						
+						WaitForAllButtonpress();
+						iButtonTime = clock.time();
+						
+						iReactionTime = iButtonTime - iPictureTime;
+						
+						iButtonPressed = response_manager.last_response();
+						
+						#sButtonPressed = system_keyboard.get_input(p_Info, t_Info1);
+						
+						if iButtonPressed == iButtonRed then
+							sButtonPressed = "Red";
+						else
+							sButtonPressed = "Green";
+						end;
+							
+						if sBoxColor == sButtonPressed then
+							sFeedback = "Correct";
+						else
+							sFeedback = "Incorrect";
+						end;
+							
+						ShowText(string(iReactionTime) + "\n" + sBoxColor + "\n" + sButtonPressed + "\n" + sFeedback);
+						wait_interval(1000);
+						
+						iTrialCount = iTrialCount + 1;
+			end;
+end;
+
+
+#-----------------StoreTheReactionTime&TheColorOfTheBox&WriteItToTheScreen-------------------
+/*
+sub StoreTheReactionTime begin
+			loop
+					iTrialCount = 1
+			until iTrialCount > iTotalAmountOfTrials begin
+			
+					p_Box.present();
+					int iStartTime = clock.time();
+					
+					iButtonTime = clock.time();
+					
+					
+					sTextOnScreen.append(string(iReactionTime));
+					t_Text1.set_caption(sTextOnScreen);
+					t_Text1.redraw();
+					p_Text.present();
+					wait_interval(2000);
+			end;
+end;
+*/
+
+sub EndExperiment begin
+		p_End.present();
+		WaitForAllButtonpress()
+end;

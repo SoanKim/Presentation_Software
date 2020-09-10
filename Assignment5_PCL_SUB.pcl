@@ -1,0 +1,28 @@
+# PCL (SUBS):
+#-----------Wait----------------
+sub Wait(int iDurWait) begin
+		int iTimeStamp;
+		loop
+				iTimeStamp = clock.time();
+		until (clock.time() >= iTimeStamp + iDurWait)
+		begin
+		end;
+end;
+
+#----------WaitForAllButtonpress --------------------
+sub WaitFor AllButtonpress begin
+end;
+
+########### TRIAL #############
+# ----------runtrials----------present one by one
+sub RunTrials begin
+		loop iTrialCount = 1
+		until iTrialCount > iRunAmountOfTrials
+		begin
+				p_Fixation.present();
+				Wait(random(500, 1000));
+				p_Box.present();
+				Wait(2000);
+				iTrialCount = iTrialCount +1;
+		end;
+end;

@@ -1,0 +1,4 @@
+# PCL (VARS);
+int iCountOld;
+int iTrialCount;
+int iRunAmountOfTrials = 10;

@@ -1,0 +1,3 @@
+# PCL:
+p_Picture1.present(); #present picture on screen
+wait_interval(5000);

@@ -1,0 +1,41 @@
+#PCL:
+ 
+array<double> adGrades[5] = {7.1, 4.5, 6.3, 5.8, 8.2};
+#double dTotal, dAverage;
+string sTextOnScreen;
+string sAverageOnScreen;
+
+#sTextOnScreen = ("studentnr: Grade:\n"); # \n refers to a next line or an ENTER.
+sAverageOnScreen = ("Average: "+ string(arithmetic_mean(adGrades))+"\n");
+#int iCount = 1;
+
+begin
+		loop
+				int dTotal = 0;
+		until dTotal == 5
+		begin
+				dTotal = dTotal + 1;
+				sTextOnScreen.append("Studentnr: "+ string(dTotal)+"    "+"Grade: " + string(adGrades[dTotal])+"\n");
+				if adGrades[dTotal] > 5.5 then
+					sTextOnScreen.append("Pass"+"\n")
+				else
+					sTextOnScreen.append("Fail"+"\n")
+				end;
+				
+		end;
+		sTextOnScreen.append("Average:"+ "    "+ string(arithmetic_mean(adGrades))+"\n");
+		
+		t_Grades.set_caption(sTextOnScreen);
+		t_Grades.redraw();
+		
+		p_Grades.present();
+		wait_interval(5000);
+end;
+
+/*
+sTextOnScreen.append("Studentnr: "+ string(1)+"    "+"Grade: " + string(adGrades[1])+"\n"); 
+sTextOnScreen.append("Studentnr: " +string(2)+"    "+"Grade: " + string(adGrades[2])+"\n"); 
+sTextOnScreen.append("Studentnr: " +string(3)+"    "+"Grade: " + string(adGrades[3])+"\n"); 
+sTextOnScreen.append("Studentnr: " +string(4)+"    "+"Grade: " + string(adGrades[4])+"\n"); 
+sTextOnScreen.append("Studentnr: " +string(5)+"    "+"Grade: " + string(adGrades[5])+"\n"); 
+/*

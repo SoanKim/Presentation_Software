@@ -1,0 +1,6 @@
+# PCL:
+# Main:
+include "RedGreenSub.pcl"
+
+RunTrials();
+EndExperiment();

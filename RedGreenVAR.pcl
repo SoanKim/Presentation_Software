@@ -1,0 +1,23 @@
+# VARS:
+#-------------------VARIABLES INITIATION---------------------
+int iTrialCount;
+int iCountOld;
+int iTotalAmountOfTrials = 2;
+int iButtonRed = 1;
+int iButtonGreen = 2;
+int iTimeWait;
+int iBoxColor;
+string sTextOnScreen;
+string sFeedback;
+#-------------------LOGDATA----------------------
+string sWord;
+int iFixationTime;
+int iPictureTime;
+int iButtonPressed;
+int iButtonTime;
+int iReactionTime;
+string sBoxColor;
+string sButtonPressed;
+
+#-------------------CreatingAnOutputFile-----------------
+output_file OutputFile = new output_file
